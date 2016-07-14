@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>퍼즐조각</title>
+<style>
+</style>
+<script src="../lib/puzzle.js"></script>
+<script>
+var stage;
+var puzzle=new Array(64);
+var color=["red","orange","yellow","green","blue","Navy","purple"];
+//프로그램 가동시 노란색 div생성
+window.addEventListener("load",function(){
+	stage=document.createElement("div");
+	stage.style.width=800+"px";
+	stage.style.height=800+"px";
+	stage.style.margin="auto";
+	stage.style.background="url('../images/photo.jpg')";
+	document.body.appendChild(stage);
+	
+	createBox();
+});
+//다량의 div를 생성하기
+
+function createBox(){
+	//console.log(puzzle.length);
+	for(var i=0;i<puzzle.length;i++){
+		//console.log(i);
+		var c=color[(parseInt(Math.random()*color.length))];
+		//console.log(c);
+		puzzle[i]=new Puzzle(stage,100,100,c);
+		puzzle[i].init();
+	}
+}
+
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

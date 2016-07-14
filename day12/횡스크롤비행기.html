@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>횡스크롤비행기</title>
+<style>
+body{
+	margin:0px;
+}
+#stage{
+	width:1000px;
+	height:750px;
+	background-image:url("../images/background.png");
+}
+
+</style>
+<script src="../lib/Ship.js"></script>
+<script src="../lib/Bullet.js"></script>
+<script src="../lib/Unit.js"></script>
+<script src="../lib/lib.js"></script>
+<script>
+var stage;
+var ship;
+var unit;
+var bgX=0;
+var src=["../images/ball/ball1.png","../images/ball/ball2.png","../images/ball/ball3.png","../images/ball/ball4.png",
+"../images/ball/ball5.png","../images/ball/ball6.png","../images/ball/ball7.png","../images/ball/ball8.png",
+"../images/ball/ball9.png","../images/ball/ball10.png"];
+
+var enemyArray=new Array();
+window.addEventListener("load",function(){
+	init();
+});
+
+function init(){
+	//alert("당신의 모니터의 크기는"+screen.width);
+	stage=document.getElementById("stage");
+	stage.style.width=screen.width+"px";
+	stage.style.height=750+"px";
+	//배경 움직이기
+	bgEffect();
+	//비행기 출력
+	ship= new Ship(stage,100,70,100,300,"../images/ship.gif");
+	ship.init();
+	for(var i=0; i<20; i++){
+		var a=30;
+		var b=i%10;
+		
+		unit = new Unit(stage,a,a,screen.width-200,a+a*i,src[b]);
+		enemyArray.push(unit);
+		unit.init();
+	}
+}
+//비행기에 대한 상,하,좌,우 및 미사일 이벤트 처리
+window.addEventListener("keydown",function(){
+	var key = event.keyCode;
+
+	switch(key){
+		case 32 : fire();break;
+		case 37 : ship.velX=-2;break;
+		case 38 : ship.velY=-2;break;
+		case 39 : ship.velX=2;break;
+		case 40 : ship.velY=2;break;
+	}
+});
+
+window.addEventListener("keyup",function(){
+	var key = event.keyCode;
+	//방향키일 경우에만
+
+	switch(key){
+		case 37 : ship.velX=0;break;
+		case 38 : ship.velY=0;break;
+		case 39 : ship.velX=0;break;
+		case 40 : ship.velY=0;break;
+	}
+});
+//비행기 미사일 발사
+function fire(){
+	//console.log(parseInt(ship.img.style.height));
+	var posX=parseInt(ship.img.style.width)-20+ship.x;//미사일의 생성 좌표
+	var posY=parseInt(ship.img.style.height)-30+ship.y;//미사일의 생성 좌표
+
+	var bullet= new Bullet(stage,posX,posY);
+	bullet.init();
+}
+
+function bgEffect(){
+	bgX-=5;
+	stage.style.backgroundPosition=bgX+"px 0px";
+
+	setTimeout("bgEffect()",50);
+}
+
+</script>
+</head>
+<body>
+	<div id="stage"></div>
+</body>
+</html>

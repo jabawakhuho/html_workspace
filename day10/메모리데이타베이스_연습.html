@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>메모리데이타베이스</title>
+<!----
+//전체 
+좌측:아이디 이름 입력(버튼) 
+우측 : 번호(내림차순) 이름 아이디 /누적 (table)
+---->
+<style>
+#wrapper{
+	width:650px;
+	height:600px;
+	margin:auto
+
+}
+#info{
+	width:150px;
+	height:600px;
+	background:yellow;
+	float:left;
+	
+}
+#stage{
+	width:500px;
+	height:600px;
+	background:green;
+	float:left;
+
+}
+</style>
+<script>
+
+var bt;
+var m_id;
+var pwd;
+var stage;
+var table;
+var len=0;
+//var count=0;//큰배열의 Index를 나타내기 위한 변수 생성!~!!
+//여러명의 회원정보를 담을 큰 배열 
+var memberList=new Array();//크기가 정해져 있으면 안된다.!!!!!
+//문서가 로드 되면.....
+window.addEventListener("load",function(){
+	m_id=document.getElementById("m_id");
+	pwd=document.getElementById("pwd");
+	stage=document.getElementById("stage");
+	table=document.createElement("table");
+
+	init();
+	getList();
+});
+
+//버튼에 이벤트 핸들러 처리
+function init(){
+	bt= document.getElementById("bt");
+	bt.addEventListener("click",function(){
+		//console.log("나누름?");
+		
+		//console.log(m_id);
+		//아이디를 입력하지 않으면 !!! 욕!
+		if(m_id.value==""){
+			alert("ID를 입력하세요!!!");
+			m_id.focus();
+			return;
+		}else if(!pwd.value){
+			alert("패스워드를 입력하세요!!!");
+			pwd.focus();
+			return;
+		}else{
+			//제대로 넣으면 등록절차 수행!!
+			//지금 등록하려는 id 와 pwd를 일차원 배열에 보관해놓자
+			var mem = [m_id.value,pwd.value];
+			//큰 배열에 담기
+			/* 개발자가 직접 ㅋ카운트를 세서 넣는 방법
+			memberList[count]= mem;
+			count++;
+			*/
+			memberList.push(mem);//기존 배열에 요소를 추가함!!!!
+			alert(memberList.length+"번째 회원이 되셨습니다.");
+			addmem();
+		}
+	
+	});
+}
+
+//등록된 회원 명단을 Table로 출력하기
+
+function getList(){
+	table.style.width="450px";
+	table.style.border="1px";
+	//tr생성 및 추가(2차원 배열의 크기만큼 만들어져야 한다.)
+	var tr = document.createElement("tr");
+	//td생성 및 추가(1차원 배열의 크기만큼)
+	var no_td = document.createElement("td");//no용
+	no_td.innerText="번호";
+	var id_td = document.createElement("td");//ID용
+	id_td.innerText="ID";
+	var pwd_td = document.createElement("td");//pwd용
+	pwd_td.innerText="패스워드";
+	
+	//생성된 제목 컬럼 TD들을 TR에 추가한다.
+	tr.appendChild(no_td);
+	tr.appendChild(id_td);
+	tr.appendChild(pwd_td);
+	//생성된 tr을 table에 추가
+	table.appendChild(tr);
+	
+
+	//div에 테이블을 최종 출력!
+	stage.appendChild(table);
+
+
+}
+
+function addmem(){
+		len++;//내림차순을 표현하기위한 no!!
+
+		//이후 tr부터는 실제 등록된 데이터가 추가 되어야 한다.
+		var record_tr=document.createElement("tr");
+		var td0=document.createElement("td");
+		var td1=document.createElement("td");
+		var td2=document.createElement("td");
+
+
+		td0.innerText=len;
+		td1.innerText=memberList[0][0];//첫번째 레코드에 들어있는 id정보 넣기
+		td2.innerText=memberList[0][1];//첫번째 레코드에 들어있는 table의 정보 넣기
+
+		//생성된 td들을 tr에 추가하자
+		record_tr.appendChild(td0);
+		record_tr.appendChild(td1);
+		record_tr.appendChild(td2);
+		
+		table.appendChild(record_tr);
+}
+
+function linup(){
+	
+}
+</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="info">
+			 ID:<input type="text" size="7" maxlength="12" id="m_id"> <br>
+			 PWD:<input type="password" size="7" maxlength="8" id="pwd"> <br>
+			 <input type="button" value="등록" id="bt">
+		</div>
+		<div id="stage">
+		</div>
+	</div>
+</body>
+</html>

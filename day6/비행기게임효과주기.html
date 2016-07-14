@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>비행기게임효과주기</title>
+<style>
+/*body 태그는 기본적으로 내용물과 마진간격이 있음*/
+body{
+	margin:0px;
+}
+#bg{
+	background:url("../images/background.png") ;
+	background-repeat: repeat-x;
+	width:100%;
+	height:800px;
+}
+
+#plan{
+	width:50px;
+	height: 50px;
+	position:absolute;
+	left:0 px;
+	top: 400px;
+}
+/*총알을 화면에서 안보이게 left값을 음수화 시키자*/
+#bullet{
+	width:10px;
+	position:absolute;
+	left:-10px;
+	top:300px;
+}
+</style>
+<script>
+//문서가 로드되면 배경을 x축 방향으로 감소시키자!!!
+var x=0;
+var planX=0;
+var planY=400;
+var bulletX=0;
+var bulletY=400;
+var speed=false;
+var sp=5;
+function init(){
+	x-=1;//-5씩
+	document.getElementById("bg").style.backgroundPosition=x+"px 0px";
+	setTimeout("init()",10);
+
+
+}
+//키보드 입력을 인식하여, 특히 방향키4개에 대해서만 반응을 보이자!!!
+//우리가 키를 입력해도 컴퓨터는 이해못함... 우리가 입력한 키를 10진수로 표현한
+//코드체게가 중간에 관여한다.이 코드체계를 ASCII코드라한다.
+function joystick(){
+	var key=event.keyCode;
+	//alert(key);
+	var pp=document.getElementById("plan")
+	if(key==13){
+		speed=!speed;
+		console.log(speed);
+		if(speed){
+			sp = 100;
+		}else{
+			sp = 5;
+		}
+		console.log(sp);
+	}
+	//스페이스바 누름 총알
+	if(key==32){
+		bulletX=planX;
+		bulletY=planY;
+		fire();
+	}
+
+	if(key==37){//좌측이동!! left값 음수값으로 누적
+		planX-=sp;
+	}else if(key==38){//상향이동 top의 값 음수값으로 누적
+		planY-=sp;
+	}else if(key==39){
+		planX+=sp;
+	}else if(key==40){
+		planY+=sp;
+	}
+	pp.style.left=planX+"px";
+	pp.style.top=planY+"px";
+}
+//총알 날아가는 효과를 주기위한 함수
+function fire(){
+	bulletX+= 5;
+	console.log(bulletX);
+	var bullet=document.getElementById("bullet")
+
+	if(bulletX<=1000){
+		bullet.style.left=bulletX+"px";
+		bullet.style.top=bulletY+"px";
+		var st=setTimeout("fire()", 1);
+	}else{
+		clearTimeout(st);
+		
+		bulletX=-10;
+		bullet.style.left=bulletX+"px";
+	}
+		
+	
+
+}
+</script>
+</head>
+<body onLoad="init()" onKeyDown="joystick()">
+	<div id="bg">
+		<img id="plan" src="../images/비행기.gif">
+		<img id="bullet" src="../images/bullet.png">
+	</div>
+</body>
+</html>

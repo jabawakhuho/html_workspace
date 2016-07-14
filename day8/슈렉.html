@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>슈렉</title>
+<style>
+body{
+	margin:0px;
+}
+
+img{
+	margin:0px;
+}
+#wrapper{
+	width:500px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:200px;
+	text-align:center;
+	font-size:15pt;
+}
+#mask{
+	width:500px;
+	height:340px;
+	overflow:hidden;
+}
+#box{
+	height:340px;
+/*	position:relative;
+	left:0px;
+	top:0px;
+*/
+}
+
+a{
+	text-decoration:none;/*밑줄 없애기*/
+	color:black;
+}
+/*a tag에 마우스를 올려놓으면*/
+a:hover{
+	color:#afffff;
+}
+
+</style>
+<script>
+var tagetX=0;//목표가 도달할 지점
+var a=0.9;
+var pos;
+var box;
+var arr = [
+	"../images/shurek/img0.jpg",
+	"../images/shurek/img1.jpg",
+	"../images/shurek/img2.jpg",
+	"../images/shurek/img3.jpg",
+	"../images/shurek/img4.jpg",
+	"../images/shurek/img5.jpg",
+	"../images/shurek/img6.jpg"
+];
+
+function init(){
+	//console.log(arr());
+	box=document.getElementById("box");
+	box.style.width=500*arr.length+"px";
+	//이미지 생성 및 A스위치 생성
+	for(var i=0; i<arr.length;i++){
+		var img=document.createElement("img");
+		img.src=arr[i];
+		box.appendChild(img);
+/*
+		var aTag=document.createElement("a");
+		aTag.href="javascript:showImg("+i+")"
+		aTag.innerText="★";
+		wrapper.appendChild(aTag);
+	*/	
+	}
+	//settimeout 시작하기!!
+	move();
+}
+
+function showImg(pos){
+	tagetX = -500*pos;
+	//box.style.left=z+"px";
+	//
+	//box.style.left=z-x*(z-parseInt(box.style.left))+"px";
+	//alert(box.style.left);
+	//setTimeout(showImg(i),1000);
+}
+
+function move(){
+	//이미지위치= (타겟-a*(타겟-나와의 남은거리));
+	//console.log(parseInt(box.style.left));
+	box.style.left=tagetX-a*(tagetX-parseFloat(box.style.left))+"px";
+
+	//console.log(box.style.left);
+	setTimeout("move()",10);
+}
+</script>
+
+</head>
+<body onLoad="init()">
+	<div id="wrapper">
+		<div id="mask">
+			<div id="box" style="position:relative; left:0px; top:0px">
+			</div>
+		</div>
+		
+		<a href="javascript:showImg(0)">●</a>
+		<a href="javascript:showImg(1)">●</a>
+		<a href="javascript:showImg(2)">●</a>
+		<a href="javascript:showImg(3)">●</a>
+		<a href="javascript:showImg(4)">●</a>
+		<a href="javascript:showImg(5)">●</a>
+		<a href="javascript:showImg(6)">●</a>
+		
+	</div>
+</body>
+</html>

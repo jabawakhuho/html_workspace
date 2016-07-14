@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>배열이용갤러리</title>
+<style>
+#screen{
+	width:400px;
+	height:500px;
+	margin:auto;
+/*	border:1px solid red;
+*/
+	background:black;
+}
+#img{
+	width:100%;
+	height:400px;
+	margin:auto;
+/*	border:2px solid blue;
+*/
+}
+
+#pic{
+	width:100%;
+	height:400px;
+	margin:auto;
+}
+#prev{
+	width:100px;
+	height:100px;
+	font-weight:bold;
+	font-size:30pt;
+	float:left;
+}
+#next{
+	float:right;
+	width:100px;
+	height:100px;
+	font-size:30pt;
+	font-weight:bold;
+}
+</style>
+<script>
+//배열선언
+var count=0;
+
+var photo = new Array();
+photo[0]="blackCar.jpg";
+photo[1]="redCar.jpg";
+photo[2]="carCar.jpg";
+photo[3]="openCar.jpg";
+photo[4]="orangeCar.jpg";
+photo[5]="redFox.jpg";
+photo[6]="sliverCar.jpg";
+photo[7]="smallCar.jpg";
+photo[8]="superCar.jpg";
+photo[9]="whiteCar.jpg";
+
+function init(){
+	var img=document.getElementById("pic");
+	img.src="../images/"+photo[count];
+}
+
+function prev(){
+
+	if(count>0){
+		count--;
+		var img=document.getElementById("pic");
+		img.src="../images/"+photo[count];
+	}else{
+		alert("이전 사진이 없습니다!!");
+	}
+	console.log("이전"+photo[count]);
+
+}
+function next(){
+
+	if(count<photo.length-1){
+		count++;
+		var img=document.getElementById("pic");
+		console.log("다음"+photo[count]);
+		img.src="../images/"+photo[count];
+	}else{
+		alert("이전 사진이 없습니다!!");
+	}
+}
+
+</script>
+</head>
+<body onload="init()">
+<div id="screen">
+	<div id="img">
+	<img id="pic">
+	</div>
+	<div id="controll">
+	<input type="button" value="이전" onClick="prev()" id="prev">
+	<input type="button" value="이후" onClick="next()" id="next">
+	</div>
+</div>
+
+</body>
+</html>

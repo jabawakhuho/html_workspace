@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<script>
+
+//개발자가 원할때, 호출하면 작동되는 코드영역을 함수(function)라 부른다.
+//함수는 호출되어야 작동된다.
+var x=1;
+
+function next(){
+	//구글의 개발자 도구 내의 콘솔 영역에 문자열을 출력!!
+	//개발시 debug(오류 잡을때..) 목적으로 사용
+	//""는 문자로 인식 그러므로 변수를 입력시 ""와 변수를 연결자 (+)로 연결하여 표시한다
+	
+	/*
+	ex)
+	명령어 console.log("나 "+x+"번 눌렀어?");
+	동작   괄호안의 콘솔로그를 표기해라 (문자(나) x(변수) 문자(번 눌렀어?)); 
+	결과   나 1번 눌렀어 
+	*/
+	
+	x++;
+	//문서내의 이미지의 src경로를 바꾸자!!!
+	//단어와 단어가 만나면 뒤단어의 첫 청자는 대문자로 표기하는 기법이 개발자들 사이에 암묵적 약속이 되버임..
+	//이런 표기법을 camel 기법이라 한다!! 낙타등기법!!
+
+	document.getElementById("photo").src="../images/"+x+".jpg";
+}
+
+// 이전 사진 보여주기
+function prev(){
+x--;
+document.getElementById("photo").src="../images/"+x+".jpg";
+
+}
+</script>
+
+</head>
+
+<body>
+	<img id="photo" src="../images/1.jpg" width="400px"><br>
+	<input type="button" value="이전사진" onClick="prev()">
+	<input type="button" value="다음사진" onClick="next()">
+</body>
+
+
+
+</html>

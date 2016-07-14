@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>프로그램으로테이블출력</title>
+<script>
+	var x=prompt("층수를 입력하세요");
+	var y=prompt("호수를 입력하세요");
+	var b=prompt("건물의 두께를 입력하세요");
+	var w=prompt("건물의 가로폭을 입력하세요");
+
+
+	document.write("<table border=\""+b+"px\" widht=\""+w+"px\">");
+
+	for(var i=x; i>=1;i--){
+		//console.log("x:"+i);
+		document.write("<tr>");
+
+		for(var j=1; j<=y;j++){
+		//console.log("y:"+j);
+		if(j<10){
+		document.write("<td 쟝소=\"100px\">"+i+"0"+j+"</td>");
+		}else{
+		document.write("<td 쟝소=\"100px\">"+i+""+j+"</td>");
+		}
+
+		}
+		document.write("</tr>");
+	}
+
+	document.write("</table>");
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+/*
+이 영역은 html이 아닌, Cascading Style sheet 라는 CSS라 불리는 디자인 영역이다.
+이 기술을 이용하면, html의 문서로서의 한계를 극복할수있다..
+예) 제한 없는 글씨 크기, 제한없는 컨텐츠의 위치, 색상 ... 등등... 디자인과 관련된 거의 모든것!!
+*/
+/*CSS에서는 id의 지정을 #으로 표기한다.*/
+#gen{
+	position:absolute; /*절대위치로 지정..(왼쪽 모서리가 기준점임)*/
+	left:200px; /*x축*/
+	top:100px;/*y축*/
+
+	transform:rotate(0deg);
+
+}
+
+</style>
+
+<script>
+var x = 200;  //가로
+var y = 100;  // 세로
+var z = 0;  //회전
+var a = 1;
+var b = 1;
+//버튼을 누르면 물체를 왼쪽(left감소)으로 이동
+function left(){
+	//문서내에 gen이라 불리는 이미지의 스타일 속성중 left값 변경!!!
+	x-= 20; //변수 x를 20씩 감소
+	document.getElementById("gen").style.left=x+"px";
+}
+//버튼을 누르면 물체를 왼쪽(left증가)으로 이동
+function right(){
+	x+= 20;
+	document.getElementById("gen").style.left=x+"px";
+}
+
+function up(){
+	y-= 20;
+	document.getElementById("gen").style.top=y+"px";
+}
+
+function down(){
+	y+= 20;
+	document.getElementById("gen").style.top=y+"px";
+}
+
+function first(){
+	x= 200;
+	y= 100;
+	document.getElementById("gen").style.top=x+"px";
+	document.getElementById("gen").style.top=y+"px";
+}
+//스타일 시트를 제어하여 물체를 회전시키자(transform:rotate(zdeg);)
+function lRotate(){
+	z-=60;
+	document.getElementById("gen").style.transform="rotate("+z+"deg)";
+}
+function rRotate(){
+	z+=60;
+	document.getElementById("gen").style.transform="rotate("+z+"deg)";
+}
+//스타일 시트를 제어하여 물체의 크기를 변경하자(transform:scale(a,b);)
+function setScale(){
+	a++;
+	b++;
+	document.getElementById("gen").style.transform="scale("+a+","+b+")";
+}
+</script>
+</head>
+
+<body>
+<input type="button" value="좌" onClick="left()">
+<input type="button" value="우" onClick="right()">
+<input type="button" value="위wheel" onMouseWheel="up()">
+<input type="button" value="아래drag" ondrag="down()">
+<input type="button" value="위out" onMouseOut="up()">
+<input type="button" value="아래" onMouseOver="down()">
+<input type="button" value="초기화" onClick="first()">
+
+<input type="button" value="좌회전" onClick="lRotate()">
+<input type="button" value="우회전" onClick="rRotate()">
+
+<input type="button" value="스케일링" onClick="setScale()">
+<img src="../images/gen.jpg" id="gen" >
+</body>
+
+</html>

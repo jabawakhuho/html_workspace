@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>반복문14번</title>
+<script>
+/*
+아래와 같은 출력 결과가 나오도록 for문을 작성하시오
+2회반복
+4회반복
+6회반복
+8회반복
+10회반복
+*/
+var i;
+for(i= 2 ; i<=10;i+=2){
+	document.write(i+"회반복<br>");
+	console.log(i);
+}
+/*
+아래와 같이 1부터 10까지의 수에 대해 짝수일 때만 “짝수” 로 출력 하세요.
+1 
+짝수
+3
+짝수
+5
+짝수
+7
+짝수
+9
+짝수
+*/
+for(i=1;i<=10;i++){
+	/*
+	if(i%2==0){
+		document.write("짝수");
+	}else{
+		document.write(i);
+	}
+	console.log(i);
+	document.write("<br>");
+	*/
+	var a=(i%2==0)? "짝수" : i ;
+	document.write(a+"<br>");
+}
+
+/*
+아래와 같이 출력 결과가 나오도록 for문을 작성하시오
+1회반복
+2회반복
+★
+4회반복
+5회반복
+★
+7회반복
+8회반복
+★
+10회반복
+*/
+for(i=1;i<=10;i++){
+	/*
+	if(i%3==0){
+		document.write("★");
+	}else{
+		document.write(i+"회반복");
+	}
+	document.write("<br>");
+	*/
+	var x= (i%3==0)? "★" : i+"회반복";
+	document.write(x+"<br>");
+}
+/*
+다음과 같이 5번째 별마다 검은별이 출력되도록 for문을 작성하세요 
+☆ ☆ ☆ ☆ ★ ☆ ☆ ☆ ☆ ★ ☆ ☆ ☆ ☆ ★ ☆ ☆ ☆ ☆
+*/
+for(var i =1; i <=19; i++){
+	var star=(i%5==0)? "★" : "☆";
+	document.write(star);
+}
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

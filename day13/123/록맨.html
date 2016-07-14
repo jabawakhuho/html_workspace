@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>록맨</title>
+<script src="../lib/lib.js"></script>
+<script src="../lib/Rockman.js"></script>
+<script src="../lib/Block.js"></script>
+<script>
+var stage;
+var blockArray=new Array();
+
+window.addEventListener("load", function(){
+	init();
+});
+
+function init(){
+	document.body.style.margin="0px"; //body에 마진 없애기!!
+	//무대 크기 설정하기 
+	stage=document.getElementById("stage");
+	stage.style.width=screen.width+"px";
+	stage.style.height=800+"px";
+	stage.style.background="yellow";
+
+	//주인공 등장 
+	var rockman = new Rockman(stage,60,65, 50,0,"../images/rockman.png");
+	rockman.init();
+
+	//블럭 생성 
+	for(var i=0;i<15;i++){
+		var block = new Block(stage,32,32,i*32,600,"../images/block.png");
+		block.init();
+
+		blockArray.push(block);
+	}
+}
+</script>
+</head>
+<body>
+<div id="stage"></div>
+</body>
+</html>

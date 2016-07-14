@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>뮤직플레이어</title>
+<style>
+#monitor{
+	background:yellow;
+	width:500px;
+	height:100px;
+	border:3px solid green;
+	font-size:30pt;
+	color:red;
+	font-weight:bold;
+}
+</style>
+<script>
+//http://www.w3schools.com/tags/ref_av_dom.asp
+//디자인
+//type=checkbox : 반복
+//실행바
+//type=버튼 : 이전 정지 재생(일지정지) 다음
+
+//문서내의 music이라는 요소를 플레이 하자
+var isPlaying=false;//플레이 시킬지,멈출지 여부를 결정하는 논리값;
+var count=1;
+
+function play(){
+	isPlaying = !isPlaying;
+	if(isPlaying){
+	    document.getElementById("music").loop=document.getElementById("ch").shecked;//체크박스의 상태에 따라 loop 여부를 결정한다.
+		document.getElementById("music").load();//메모리적제
+		document.getElementById("playB").value="||";
+		document.getElementById("music").play();
+		document.getElementById("music_name").innerText=count+".mp3";
+	}else{
+		document.getElementById("playB").value="▶";
+		document.getElementById("music").pause();
+	}
+}
+
+function stop(){
+	//load - 다시 음악의 준비시켜라....
+	document.getElementById("music").load();
+}
+
+function next(){
+	count++;
+	document.getElementById("dest").src="../music/"+count+".mp3";
+	
+	//변경된 음악을 메모리에 로딩할 시간을 줘야한다.
+	document.getElementById("music").load();
+
+	//그리고 나서 플레이가 시작된다.
+	document.getElementById("music").play();
+	document.getElementById("music_name").innerText=count+".mp3";
+	console.log(count);
+	
+}
+
+function prev(){
+	count--;
+	if(isPlaying){
+	document.getElementById("dest").src="../music/"+count+".mp3";
+	document.getElementById("music").load();
+	document.getElementById("music").play();
+	document.getElementById("music_name").innerText=count+".mp3";
+	}else{
+	document.getElementById("dest").src="../music/"+count+".mp3";
+	document.getElementById("music").load();
+	document.getElementById("music_name").innerText=count+".mp3";
+	}
+	console.log(count);
+}
+
+</script>
+</head>
+
+<body>
+<audio id="music">
+	<source id="dest" src="../music/1.mp3" type="audio/mpeg">
+
+</audio>
+
+<div id="monitor">
+<marquee id="music_name">재생버튼을 눌러주세요..</marquee>
+</div>
+
+<input type="button" value="◀◀" onClick="prev()">
+<input type="button" value="■" onClick="stop()">
+<input type="button" value="▶" onClick="play()" id="playB">
+<input type="button" value="▶▶" onClick="next()" >
+Repeat:<input type="checkbox" id="ch">
+</body>
+</html>

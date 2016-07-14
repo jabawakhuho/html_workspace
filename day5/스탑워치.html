@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>스탑워치</title>
+<style>
+#hhtxt{
+	width:200px;
+	height:100px;
+	font-size:40pt;
+	font-weight:bold;
+	color:red;
+	background:yellow;
+	text-align:right;
+}
+#mmtxt{
+	width:200px;
+	height:100px;
+	font-size:40pt;
+	font-weight:bold;
+	color:red;
+	background:yellow;
+	text-align:right;
+}
+#sstxt{
+	width:200px;
+	height:100px;
+	font-size:40pt;
+	font-weight:bold;
+	color:red;
+	background:yellow;
+	text-align:right;
+}
+
+</style>
+<script>
+//문서가 모두 읽혀졌으므로, 아래의 txt요소를 접근할수있다.
+var hh=0;
+var mm=0;
+var ss=0;
+var st;
+
+function init(){
+	document.getElementById("hhtxt").value=0;
+	document.getElementById("mmtxt").value=0;
+	document.getElementById("sstxt").value=0;
+
+
+}
+//txt의 기존값을 증가값으로 대임
+function start(){
+	if(hh<=59){
+		if(mm<=59){
+			if(ss<=59){
+			ss++;
+			document.getElementById("sstxt").value=ss;
+				//console.log("초:"+ss);
+			}else{
+				ss=0;
+				mm++;
+				document.getElementById("sstxt").value=ss;
+			}
+		//	console.log("분:"+mm);
+			document.getElementById("mmtxt").value=mm;
+		}else{
+			mm=0;
+			hh++;
+			document.getElementById("mmtxt").value=mm;
+		}
+	document.getElementById("hhtxt").value=hh;
+
+	}else{
+		stop();
+	}
+	
+	st=setTimeout("start()", 1);
+	//버튼을 못누르게 비활성화 시키기
+	document.getElementById("bt_start").disabled=true;
+}
+
+function stop(){
+	clearTimeout(st);//기존 셋타임 아웃에 의한 자동호출을 중지!!
+	document.getElementById("bt_start").disabled=false;
+}
+
+</script>
+
+</head>
+<body onLoad="init()">
+	<input type="text" id="hhtxt" >
+	<input type="text" id="mmtxt" >
+	<input type="text" id="sstxt" >
+	<input type="button" value="시작" onClick="start()" id="bt_start">
+	<input type="button" value="일시정지" onClick="stop()" id="bt+stop">
+	<input type="button" value="초기화" onClick="init()">
+</body>
+</html>

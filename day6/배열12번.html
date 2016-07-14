@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script>
+//1~10 0 11~20 1
+var arr= new Array(20);
+
+for(var i =0; i<arr.length;i++){
+/*
+	if(i<10){
+		arr[i]=0;
+	}else{
+		arr[i]=1;
+	}
+	*/
+	arr[i]=(i<10)? 0 : 1;
+	document.write("arr["+i+"]="+arr[i]+"<br>");
+}
+
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

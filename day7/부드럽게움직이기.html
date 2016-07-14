@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>부드럽게움직이기</title>
+<style>
+#gen{
+
+	width:50px;
+}
+#wrapper{
+	width:100%;
+	height:700px;
+	border: 2px solid red;
+}
+</style>
+<script>
+var gen;
+var a=0.9;
+var targetX=0;//이미지가 도달할 목표지점!!!
+var targetY=0;
+var st;
+var sp;
+
+function init(){
+	gen = document.getElementById("gen");
+	wrapper=document.getElementById("wrapper");
+	sp=document.getElementById("sp");
+
+	gen.style.left=targetX-a*(targetX-parseInt(gen.style.left))+"px";
+	gen.style.top=targetY-a*(targetY-parseInt(gen.style.top))+"px";
+	st=setTimeout("init()",10);
+}
+
+function pos(){
+	console.log(sp.value);
+	a= sp.value;
+	targetX=event.clientX;
+	targetY=event.clientY;
+}
+
+</script>
+
+</head>
+<body onLoad="init()" onMouseMove="pos()">
+<div id="wrapper" >
+<img src="../images/gen.jpg" id="gen" style="position:absolute;left:0px;top:200px;">
+
+</div>
+<select id="sp">
+<option value="0.9">1x</option>
+<option value="0.45">2x</option>
+<option value="0.2">3x</option>
+</select>
+
+</body>
+</html>

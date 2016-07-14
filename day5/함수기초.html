@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>함수기초</title>
+</head>
+<script>
+//배경색을 바꾸는 함수
+function setBg(n){
+	/*
+		var x = document.getElementById(n).value;
+		console.log(x);
+		document.body.style.background=x;
+	*/
+	document.body.style.background=n;
+
+}
+
+function setBgId(a){
+		var x = document.getElementById(a).value;
+		console.log(x);
+		document.body.style.background=x;
+}
+</script>
+<body>
+<input type="button" value="RED" OnClick="setBg('red')" id="1">
+<input type="button" value="Orange"  OnClick="setBg('orange')" id="2">
+<input type="button" value="Yellow"  OnClick="setBg('yellow')" id="3">
+<input type="button" value="Green"  OnClick="setBg('green')" id="4">
+<input type="button" value="Blue"  OnClick="setBg('blue')" id="5">
+<input type="button" value="Navy"  OnClick="setBg('navy')" id="6">
+<input type="button" value="Purple"  OnClick="setBg('Purple')" id="7">
+<br>
+<input type="button" value="RED" OnClick="setBgId(1)" id="1">
+<input type="button" value="Orange"  OnClick="setBgId(2)" id="2">
+<input type="button" value="Yellow"  OnClick="setBgId(3)" id="3">
+<input type="button" value="Green"  OnClick="setBgId(4)" id="4">
+<input type="button" value="Blue"  OnClick="setBgId(5)" id="5">
+<input type="button" value="Navy"  OnClick="setBgId(6)" id="6">
+<input type="button" value="Purple"  OnClick="setBgId(7)" id="7">
+</body>
+</html>

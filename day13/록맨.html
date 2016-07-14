@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>록맨</title>
+<script src="../lib/Rockman.js"></script>
+<script src="../lib/Block.js"></script>
+<script src="../lib/lib.js"></script>
+<script src="../lib/Bullet.js"></script>
+<script src="../lib/Unit.js"></script>
+<script>
+var stage;
+var rockman;
+var actionCount=0;//몇번째 액션을 보여줄지를 결정하는 변수
+
+var step=0;
+var blockArr= new Array();
+var enemyArray= new Array();
+var runArray=[
+	"../images/action/run0.png",
+	"../images/action/run1.png",
+	"../images/action/run2.png"
+];
+var jumpArray=[
+	"../images/action/jump0.png",
+	"../images/action/jump1.png",
+	"../images/action/jump2.png",
+];
+
+window.addEventListener("load",function (){
+	init();
+});
+
+function init(){
+	document.body.style.margin="0px";
+	//무대 설정하기
+	stage=document.getElementById("stage");
+	stage.style.width=screen.width+"px";
+	stage.style.height=632+"px";
+	stage.style.background="url('../images/Map.png')";
+
+	//마우스로 블럭 생성하기
+	for(var i=0; i<60; i++){
+		var block=new Block(stage,20,20,20*i,500,"../images/block1.png");
+		block.init();
+		blockArr.push(block);
+	}
+
+	stage.addEventListener("click",function(){
+		var x = event.clientX;
+		var y = event.clientY;
+
+		var block=new Block(stage,40,40,x,y,"../images/block1.png");
+		block.init();
+		blockArr.push(block);
+	});
+
+	gameStart();
+	bgEffect();
+	createEnemy();
+
+}
+
+function gameStart(){
+	//록맨 등장 시킨다.
+	rockman= new Rockman(stage,33,27,50,0,"../images/mega1.png");
+	rockman.init();
+}
+//적군을 등장 시킨다.
+function createEnemy(){
+	var enemyImg = [
+	"../images/enemy/e1.png",
+	"../images/enemy/e2.png",
+	"../images/enemy/e3.png",
+	"../images/enemy/e4.png"
+	]
+	
+	for(var i=0; i<8;i++){
+		var r=getRandomByRange(enemyImg.length-1,0);
+		var enemy = new Unit(stage,50,50,screen.width-50,60*i,enemyImg[r]);
+		enemy.init();
+		enemyArray.push(enemy);
+	}
+
+}
+
+window.addEventListener("keydown",function(){
+//	alert(event.keyCode);
+	var key=event.keyCode;
+
+	switch(key){
+		case 32 : jump();  break;
+		case 37 : go(-2);  break;
+		case 39 : go(2);  break;
+		case 65 : fire();  break;
+	}
+});
+window.addEventListener("keyup",function(){
+//	alert(event.keyCode);
+	var key=event.keyCode;
+
+	if(key==37||key==39){
+		rockman.velX=0; 
+		step=0;
+		
+	}
+	rockman.img.src="../images/mega1.png";
+
+	rockman.running=false;
+});
+
+function jump(){
+	//점프상태도 아니고, 떨어지고 있지도 않은 상황에서만 점프를 허용한다
+	if(!rockman.jumping&&!rockman.falling){
+		rockman.velY=-2;
+	}
+	rockman.jumping=true;
+
+	rockman.action(jumpArray);
+}
+//총알발사
+function fire(){
+	var bullet =new Bullet(stage,rockman.x+10,rockman.y);
+	bullet.init();
+}
+
+function go(s){
+	step=s;
+	//움직임 처리
+	rockman.velX=step;
+
+	rockman.running=true;
+	rockman.action(runArray);
+}
+
+//배경처리
+var bgX =0;
+function bgEffect(){
+
+	bgX +=(-step*10);
+	//카메라 효과
+	stage.style.backgroundPosition=bgX+"px 0px";
+
+	setTimeout("bgEffect()",100);
+}
+
+function move(){
+	rockman.div.style
+}
+</script>
+</head>
+<body>
+<div id="stage"></div>
+<input type="button" value="start" onClick="gameStart()">
+<input type="button" value="맴그리기" onClick="createEnemy()">
+</body>
+</html>

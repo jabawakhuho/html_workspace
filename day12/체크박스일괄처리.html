@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>체크박스일괄처리</title>
+<script>
+
+//문서내의 ch라는 box의 상태를 boss의 상태와 일치시키자
+function checkAll(){
+	var boss = document.getElementById("boss").checked;
+	var chArr= document.getElementsByName("ch");
+	
+	for(var i=0; i<chArr.length;i++){
+		chArr[i].checked=boss;
+	}
+}
+</script>
+</head>
+
+<body>
+<form name="form1">
+	<input type="checkbox" id="boss" onClick="checkAll()"> 대표
+	<p>
+	<input type="checkbox" name="ch"> <br>
+	<input type="checkbox" name="ch"> <br>
+	<input type="checkbox" name="ch"> <br>
+	<input type="checkbox" name="ch"> <br>
+	<input type="checkbox" name="ch"> <br>
+	<input type="checkbox" name="ch"> <br>
+	<input type="checkbox" name="ch"> <br>
+	<input type="checkbox" name="ch"> <br>
+	<input type="checkbox" name="ch"> <br>
+	<input type="checkbox" name="ch"> <br>
+	<input type="checkbox" name="ch"> <br>
+</form>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>버튼생성</title>
+<style>
+input{
+	width:100px;
+	height:45px;
+	background:black;
+	color:white;
+}
+</style>
+<script>
+//버튼의 갯수를 입력을 받아 한줄5개씩 생성하기
+var x = prompt("버튼 숫자 입력");
+
+for(var i=1; i <= x ; i++){
+
+var y= (i%5==0)? "<br>" : "" ;
+document.write("<input type=\"button\" value=\""+i+"\">"+y); 
+
+}
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

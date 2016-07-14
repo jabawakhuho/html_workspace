@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>메모리데이타베이스</title>
+<!----
+//전체 
+-----검색 기능 /id검색창 검색버튼
+좌측:아이디 이름 입력(버튼) 
+우측 : 번호(내림차순)  아이디 pwd 이름  낸돈 합계 (colespan... ) /누적 (table)
+---->
+<style>
+#wrapper{
+	width:650px;
+	height:600px;
+	margin:auto
+
+}
+#info{
+	width:150px;
+	height:600px;
+	background:yellow;
+	float:left;
+	
+}
+#stage{
+	width:500px;
+	height:600px;
+	background:green;
+	float:left;
+
+}
+#search{
+	width:500px;
+	height:50px;
+	background:#ccffff;
+}
+#Tb{
+	width:500px;
+	height:550px;
+	background:#ff33ff;
+}
+#search_n{
+	position:relative;
+	left:100px;
+	top:5px;
+	font-size:20pt;
+}
+#search_b{
+	position:relative;
+	left:110px;
+	top:5px;
+	font-size:20pt;
+}
+table, tr, td{
+	border:1px solid black;
+}
+</style>
+<script>
+
+var bt;
+var m_id;
+var pwd;
+var Tb;
+var table;
+var m_name,gold,search_b;
+var count=0;
+var sgold=0;//모인 성금들의 합
+//var sumGold_td;
+
+//var count=0;//큰배열의 Index를 나타내기 위한 변수 생성!~!!
+//여러명의 회원정보를 담을 큰 배열 
+var memberList=new Array();//크기가 정해져 있으면 안된다.!!!!!
+//문서가 로드 되면.....
+window.addEventListener("load",function(){
+	m_id=document.getElementById("m_id");
+	pwd=document.getElementById("pwd");
+	m_name=document.getElementById("name");
+	gold=document.getElementById("gold");
+	Tb=document.getElementById("Tb");
+	search_b=document.getElementById("search_b");
+
+	getTitle();
+	SumGold();
+	init();
+
+});
+
+//버튼에 이벤트 핸들러 처리
+function init(){
+	bt= document.getElementById("bt");
+
+	bt.addEventListener("click",function(){
+		//console.log("나누름?");
+			console.log(gold.value);
+		//console.log(m_id);
+		//아이디를 입력하지 않으면 !!! 욕!
+		if(m_id.value==""){
+			alert("ID를 입력하세요!!!");
+			m_id.focus();
+			return;
+		}else if(!pwd.value){
+			alert("패스워드를 입력하세요!!!");
+			pwd.focus();
+			return;
+		}else if(!m_name.value){
+			alert("이름를 입력하세요!!!");
+			m_name.focus();
+			return;
+		}else if(!gold.value){
+			alert("이름를 입력하세요!!!");
+			gold.focus();
+			return;
+	
+		}else{
+			//제대로 넣으면 등록절차 수행!!
+			//지금 등록하려는 id 와 pwd를 일차원 배열에 보관해놓자
+			var mem = [m_id.value,pwd.value,m_name.value,gold.value];
+			//큰 배열에 담기
+			/* 개발자가 직접 ㅋ카운트를 세서 넣는 방법
+			memberList[count]= mem;
+			count++;
+			*/
+			memberList.push(mem);//기존 배열에 요소를 추가함!!!!
+			alert(memberList.length+"번째 회원이 되셨습니다.");
+			getList();
+			SumGold();
+		}
+
+	});
+
+	//검색버튼 누를시 동작
+	search_b.addEventListener("click",function(){
+		nameSearch();
+	
+	});
+}
+//컬럼 재목을 처리하는 함수정의
+function getTitle(){
+	table=document.createElement("table");
+	table.style.width="450px";
+	//tr생성 및 추가(2차원 배열의 크기만큼 만들어져야 한다.)
+	var tr = document.createElement("tr");
+	//td생성 및 추가(1차원 배열의 크기만큼)
+	var no_td = document.createElement("td");//no용
+	no_td.innerText="번호";
+	var id_td = document.createElement("td");//ID용
+	id_td.innerText="ID";
+	var pwd_td = document.createElement("td");//pwd용
+	pwd_td.innerText="패스워드";
+	var name_td=document.createElement("td");//이름
+	name_td.innerText="이름";
+	var gold_td=document.createElement("td");//돈
+	gold_td.innerText="성금";
+	//생성된 제목 컬럼 TD들을 TR에 추가한다.
+	tr.appendChild(no_td);
+	tr.appendChild(id_td);
+	tr.appendChild(pwd_td);
+	tr.appendChild(name_td);
+	tr.appendChild(gold_td);
+	//생성된 tr을 table에 추가
+	table.appendChild(tr);
+
+	//합계를 위한 table
+	
+	//div에 테이블을 최종 출력!
+	Tb.appendChild(table);
+}
+//appendChild의 특징상 테이블에 기존값이 누적되므로 리스트를 보여주기 전에 Table의 자식요소들을 싹 지운다.
+function initTable(){
+	table.innerHTML="";
+	getTitle();
+}
+
+
+//등록된 회원 명단을 Table로 출력하기
+function getList(){
+	initTable();
+	var gold=0;
+	//console.log(memberList[0]);
+	var len = memberList.length;//내림차순을 표현하기위한 no!!
+	var num=len;
+	//console.log(len);
+
+	for(var i=(len-1); i >= 0;i--){
+	//	console.log("i="+i);
+	//	console.log(memberList[(len-1)]);
+		//이후 tr부터는 실제 등록된 데이터가 추가 되어야 한다.
+		var record_tr=document.createElement("tr");
+		var td0=document.createElement("td");
+		var td1=document.createElement("td");
+		var td2=document.createElement("td");
+		var td3=document.createElement("td");
+		var td4=document.createElement("td");
+
+		td0.innerText=num--;
+		td1.innerText=memberList[i][0];//첫번째 레코드에 들어있는 id정보 넣기
+		td2.innerText=memberList[i][1];//첫번째 레코드에 들어있는 table의 정보 넣기
+		td3.innerText=memberList[i][2];//첫번째 레코드에 들어있는 table의 정보 넣기
+		td4.innerText=memberList[i][3];//첫번째 레코드에 들어있는 table의 정보 넣기
+		console.log(":::"+memberList[i][3]);
+		console.log("합:"+gold);
+		gold+=parseInt(memberList[i][3]); ///parseInt안붙일시 문자 더하기가 됨???
+		console.log("합:"+gold);
+
+		//생성된 td들을 tr에 추가하자
+		record_tr.appendChild(td0);
+		record_tr.appendChild(td1);
+		record_tr.appendChild(td2);
+		record_tr.appendChild(td3);
+		record_tr.appendChild(td4);
+
+		
+		table.appendChild(record_tr);
+	}
+		sgold=gold;
+}
+
+function SumGold(){
+	var sum_tr = document.createElement("tr");
+	var sum_td = document.createElement("td");//no용
+	var sumGold_td = document.createElement("td");//no용
+
+	sum_td.style.colspan="4";
+	sum_td.innerText="합계";
+	//sumGold_td.style.colspan="4";
+	sumGold_td.style.align="right";
+
+	sumGold_td.innerText=sgold;
+	sum_tr.appendChild(sum_td);
+	sum_tr.appendChild(sumGold_td);
+	table.appendChild(sum_tr);
+}
+
+function nameSearch(){
+	var search_n= document.getElementById("search_n");
+	var x=0;//
+	sgold=0;
+	initTable();
+	for(var i =0; i < memberList.length; i++){
+		var mem_name=memberList[i][2];
+		console.log("rja:"+search_n.value);
+		console.log(mem_name);
+		if(mem_name==search_n.value){
+			//alert("찾음");
+			Sview(i);
+		}else{
+			x++;
+		}
+	}
+	if(x==memberList.length){
+	getList();
+	alert("없음");
+	}
+	SumGold();
+}
+
+function Sview(i){
+		
+		var record_tr=document.createElement("tr");
+		var td0=document.createElement("td");
+		var td1=document.createElement("td");
+		var td2=document.createElement("td");
+		var td3=document.createElement("td");
+		var td4=document.createElement("td");
+
+		td0.innerText=++count;
+		td1.innerText=memberList[i][0];//첫번째 레코드에 들어있는 id정보 넣기
+		td2.innerText=memberList[i][1];//첫번째 레코드에 들어있는 table의 정보 넣기
+		td3.innerText=memberList[i][2];//첫번째 레코드에 들어있는 table의 정보 넣기
+		td4.innerText=memberList[i][3];//첫번째 레코드에 들어있는 table의 정보 넣기
+		var g=parseInt(memberList[i][3]);
+		sgold+=g;
+		//생성된 td들을 tr에 추가하자
+		record_tr.appendChild(td0);
+		record_tr.appendChild(td1);
+		record_tr.appendChild(td2);
+		record_tr.appendChild(td3);
+		record_tr.appendChild(td4);
+
+		
+		table.appendChild(record_tr);
+
+}
+</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="info">
+			 ID:<input type="text" size="7" maxlength="12" id="m_id"> <br>
+			 PWD:<input type="password" size="7" maxlength="8" id="pwd"> <br>
+ 			 이름:<input type="text" size="7" maxlength="12" id="name"> <br>
+			 성금:<input type="text" size="7" maxlength="12" id="gold"> <br>
+			 <input type="button" value="등록" id="bt">
+		</div>
+		<div id="stage">
+			<div id="search">
+				<input type="text" size="12" maxlength="12" id="search_n"> 
+				<input type="button" value="검색" id="search_b"> 
+			</div>
+			<div id="Tb"></div>
+	
+	</div>
+</body>
+</html>

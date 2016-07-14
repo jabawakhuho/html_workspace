@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>우주선움직이기</title>
+<style>
+#stage{
+	height:800px;
+}
+</style>
+<script src="../lib/Flame.js"></script>
+<script src="../lib/Bullet.js"></script>
+<script>
+var stage;
+var ship;
+var flame;
+//Load이벤트 처리
+window.addEventListener("load",function(){
+	stage=document.getElementById("stage");
+	stage.style.width=1000+"px";
+	ship= new Ship(stage,100,80,100,100);
+	ship.init();
+	//붗꽃화염 나오기
+	flame= new Flame(stage,100,60,(ship.x-100),(ship.y+20));
+	flame.init();
+});
+//마우스 이벤트 처리
+window.addEventListener("keydown",function(){
+	//alert(event.keyCode);
+	var key= event.keyCode;
+	//ship.move(key);
+	if(key==32){
+		//alert("총알발사");
+		var bullet= new Bullet(stage,(ship.x+100),(ship.y+30));
+		bullet.init();
+	}else if(key==37){
+		ship.x-=10;
+	}else if(key==38){
+		ship.y-=10;
+	}else if(key==39){
+		ship.x+=10;
+	}else if(key==40){
+		ship.y+=10;
+	}
+	ship.go();
+	//console.log("x"+ship.x);
+	flame.pos((ship.x-100),(ship.y+20));
+});
+
+var Ship=function(area,w,h,x,y){
+	this.stage=area;//지정될 곳
+	this.img;
+	this.width=w;//이미지 길이
+	this.height=h;//이미지 높이
+	this.x=x;
+	this.y=y;
+	this.ship="../images/ship.gif";//비행기의 이미지 경로
+
+	this.init=function(){
+		this.img=document.createElement("img");
+		this.img.src=this.ship;
+		this.img.style.width=this.width+"px";
+		this.img.style.height=this.height+"px";
+		this.img.style.position="absolute";
+		this.img.style.left=this.x+"px";
+		this.img.style.top=this.y+"px";
+		this.stage.appendChild(this.img);
+
+	}
+	//방향이동
+	this.go=function(){
+		this.img.style.left=this.x+"px";
+		this.img.style.top=this.y+"px";
+	}
+
+	this.move=function(key){
+
+	}
+}
+
+</script>
+
+</head>
+<body>
+	<div id="stage"> </div>
+</body>
+</html>

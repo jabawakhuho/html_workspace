@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>가위바위보</title>
+<script>
+/*
+var mjp=new Array();
+mjp[0]="가위.png";
+mjp[1]="바위.png";
+mjp[2]="보.png";
+*/
+var mjp=
+	["가위.png",
+	"바위.png",
+	"보.png"] 
+
+var n=Math.random();
+document.write("<img src=\"../images/"+mjp[parseInt(n*mjp.length)]+"\">");
+console.log(mjp[parseInt(n*3)]);
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

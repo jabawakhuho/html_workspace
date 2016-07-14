@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>총알발사하기</title>
+<style>
+#stage{
+	width:100%;
+	height:800px;
+	background:yellow;
+}
+
+</style>
+<script src="../lib/Bullet.js"></script>
+<script>
+
+var stage;
+function init(){
+	stage=document.getElementById("stage");
+	/* 많이 만들기
+	for(var i=0;i<1000;i++){
+		var b= new Bullet(50*i);
+		b.init();
+	}
+	*/
+	//프로그래밍에서 이벤트 핸들러를 적용할때.....
+	window.addEventListener("keydown",function(){
+	//	alert("키보드 눌렀어?");
+		if(event.keyCode==32){
+			var b= new Bullet(stage,200);
+			b.init();
+		}
+	});
+}
+
+
+</script>
+
+</head>
+<body onLoad="init()">
+<div id="stage">
+</div>
+</body>
+</html>

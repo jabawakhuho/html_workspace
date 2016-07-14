@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>우편번호 검색</title>
+<script>
+//새창에서 선택한 현재의 우편번호 텍스트를, 부모 윈도우의 우편번호 입력란에 체워넣는다.+주소까지
+function  setPost(zipcode,addr){
+
+	var zip = zipcode.split("-");
+
+	opener.document.form1.zipcode1.value=zip[0];
+	opener.document.form1.zipcode2.value=zip[1];
+	opener.document.form1.addr1.value=addr;
+	window.close();
+	opener.document.form1.zipcode2.focus();
+
+	
+}
+</script>
+</head>
+<body bgcolor="";>
+	<table width="100%" border="1px">
+		<tr>
+			<td colspan="2" align="center">
+				<input type="text">
+				<img src="/images/search_bt.png" width="30px" >
+			</td>
+		</tr>
+		<tr>
+			<td>우편번호</td>
+			<td>주소</td>
+		</tr>
+		<tr onMouseOver="this.style.background='#ffccff'" onMouseOut="this.style.background=''" >
+			<td><a href="javascript:setPost('123-456','서울 강남구 신사동 도화빌딩')">123-456</a></td>
+			<td>서울 강남구 신사동 도화빌딩</td>
+		</tr>
+		<tr onMouseOver="this.style.background='#ffccff'" onMouseOut="this.style.background=''">
+			<td><a href="javascript:setPost('123-457','서울 금천구 쌍문동')">123-457</a></td>
+			<td>서울 금천구 쌍문동</td>
+		</tr onMouseOver="this.style.background='#ffccff'" onMouseOut="this.style.background=''">
+			<tr>
+			<td><a href="javascript:setPost('132-455','경기 수원시 장안동')">132-455</a></td>
+			<td>경기 수원시 장안동</td>
+		</tr>
+		<tr onMouseOver="this.style.background='#ffccff'" onMouseOut="this.style.background=''">
+			<td><a href="javascript:setPost('133-457','경기 용인시 애버랜드')">133-457</a></td>
+			<td>경기 용인시 애버랜드</td>
+		</tr>
+		<tr onMouseOver="this.style.background='#ffccff'" onMouseOut="this.style.background=''">
+			<td><a href="javascript:setPost('134-457','경기 오산시 123')">134-457</a></td>
+			<td>경기 오산시 123</td>
+		</tr>
+		<tr onMouseOver="this.style.background='#ffccff'" onMouseOut="this.style.background=''">
+			<td><a href="javascript:setPost('135-456','경기 화성시 병점동')">135-456</a></td>
+			<td>경기 화성시 병점동</td>
+		</tr>
+	</table>
+</body>
+</html>

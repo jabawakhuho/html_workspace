@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>썸네일겔러리</title>
+<style>
+div{
+	margin:auto;
+	border: 2px solid red;
+	width:600px;
+	height:650px;
+}
+
+
+</style>
+<script>
+
+function setImg(n){
+	document.getElementById(n).style.border="3px solid red";
+	document.getElementById("big").src="../images/car"+n+".jpg";
+}
+
+function sumnail(){
+	document.write("<div>");	
+	document.write("<table width=\"100%\" >");
+	document.write("<tr>");
+	for(var i=1;i<=10;i++){
+		 document.write("<td><img src=\"../images/car"+i+".jpg\" width=\"50px\" onMouseOver=\"setImg("+i+")\" id=\""+i+"\"></td>");
+	}
+	document.write("</tr>");
+	document.write("</table>");
+	document.write("<img src=\"../images/car1.jpg\" width=\"100%\" id=\"big\">");
+	document.write("</div>");
+}
+
+sumnail();
+
+
+</script>
+</head>
+<body>
+<!--
+<div>
+
+	<table width="100%">
+		<tr>
+		<td><img src="../images/car1.jpg" width="50px" onMouseOver="setImg(1)"></td>
+		<td><img src="../images/car2.jpg" width="50px" onMouseOver="setImg(2)"></td>
+		<td><img src="../images/car3.jpg" width="50px" onMouseOver="setImg(3)"></td>
+		<td><img src="../images/car4.jpg" width="50px" onMouseOver="setImg(4)"></td>
+		<td><img src="../images/car5.jpg" width="50px" onMouseOver="setImg(5)"></td>
+		<td><img src="../images/car6.jpg" width="50px" onMouseOver="setImg(6)"></td>
+		<td><img src="../images/car7.jpg" width="50px" onMouseOver="setImg(7)"></td>
+		<td><img src="../images/car8.jpg" width="50px" onMouseOver="setImg(8)"></td>
+		<td><img src="../images/car9.jpg" width="50px" onMouseOver="setImg(9)"></td>
+		<td><img src="../images/car10.jpg" width="50px" onMouseOver="setImg(10)"></td>
+		</tr>
+	</table>
+	
+
+	<img src="../images/car1.jpg" width="100%" id="big">
+</div>
+-->
+</body>
+</html>

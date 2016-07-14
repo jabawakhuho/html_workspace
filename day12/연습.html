@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+body{
+	margin:0px;
+}
+#stage{
+	width:700px;
+	height:500px;
+}
+</style>
+<script>
+var stage;
+var bgColor=["red","orange","yellow","green","blue","navy","purple"];
+window.addEventListener("load",function(){
+	init();
+});
+
+function init(){
+	stage=document.getElementById("stage");
+	var rect;
+	
+	var x =100;
+	for(var i=0; i<bgColor.length;i++){
+		var bg=parseInt(Math.random()*bgColor.length);
+		rect= new Rect(stage,100,50,(x*i),10,bgColor[bg]);
+		rect.init();
+		//console.log(divArray);
+	}
+}
+
+//객체 생성
+var Rect=function(stage,width,height,x,y,bg){
+	this.stage=stage;
+	this.div;
+	this.width=width;
+	this.height=height;
+	this.x=x;
+	this.y=y;
+	this.bg=bg;
+	this.st;
+	this.a=0.9;
+	this.velY=0;
+
+	this.init=function(){
+		var me=this;
+		this.div=document.createElement("div");
+		this.div.style.width=this.width+"px";
+		this.div.style.height=this.height+"px";
+		this.div.style.position="absolute";
+		this.div.style.left=this.x+"px";
+		this.div.style.top=this.y+"px";
+		this.div.style.background=this.bg;
+		this.div.style.border="1px solid black";
+
+		this.stage.appendChild(this.div);
+
+		this.div.addEventListener("mouseover",function(){
+			me.velY=500;
+		});
+
+		this.div.addEventListener("mouseout",function(){
+			me.velY=0;
+		});
+
+		me.move();
+	}
+
+	this.move=function(){
+		var me=this;
+		//console.log(this.velY);
+		this.y=parseInt(this.div.style.height)+5;
+		//console.log(this.y);
+		this.div.style.height=this.velY-this.a*(this.velY-this.y)+"px";
+
+		st = setTimeout(function(){
+			me.move();
+		},10);		
+	}
+}
+</script>
+</head>
+<body>
+	<div id ="stage"></div>
+</body>
+</html>

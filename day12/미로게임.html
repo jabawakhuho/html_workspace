@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>미로게임</title>
+<style>
+body{
+	margin:0px;
+}
+#stage{
+	background:yellow;
+
+}
+</style>
+<script src="../lib/Maze.js"></script>
+<script src="../lib/ship.js"></script>
+<script src="../lib/lib.js"></script>
+<script>
+var stage;
+var maze;
+var ship;
+var posX=0;
+var posY=0; //개행
+var w=40;
+var mazeArray = new Array();
+window.addEventListener("load",function(){
+	init();
+});
+
+function init(){
+	stage=document.getElementById("stage");
+	stage.style.width=screen.width+"px";
+	stage.style.height=800+"px";
+	stage.style.backgroundImage="url('../images/background.png')";
+	
+	var low=(screen.width/w)*(parseInt(stage.style.height)/w);//화면 비율에 맞는 div갯수 계산
+	//console.log(low);
+	for(var i=1;i<low;i++){
+	
+		if(i%(screen.width/w)==0){
+			posY++;
+			posX=0;
+		}
+		maze = new Maze(stage,w,w,posX*w,posY*w);
+		maze.init();
+		mazeArray.push(maze);
+		posX++;
+	}
+	
+	ship = new Ship(stage,w/2,w/2,90,90,"../images/ship.gif");
+	ship.init();
+	ship.img.style.border="1px solid blue";
+
+	
+
+}
+//상하 좌우 이벤트 처리
+window.addEventListener("keydown",function(){
+		var key = event.keyCode;
+		switch(key){
+			case 37 : ship.velX=-4;  break;
+			case 38 : ship.velY=-4;  break;
+			case 39 : ship.velX=4;  break;
+			case 40 : ship.velY=4; break;
+		}
+});
+window.addEventListener("keyup",function(){
+		var key = event.keyCode;
+		switch(key){
+			case 37 : ship.velX=0 ; break;
+			case 38 : ship.velY=0; break;
+			case 39 : ship.velX=0; break;
+			case 40 : ship.velY=0; break;
+		}
+});
+
+
+</script>
+</head>
+<body>
+<div id="stage"></div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>스위치ONOff</title>
+<style>
+/* 
+문법이 누구를 어떻게 할지로 구성됨
+*/
+input{
+	width:200px;
+	height:60px;
+	background:#009900;
+	font-size:20pt;
+	color:#ffffff;
+	font-weight:bold;
+}
+body {
+	background:yellow;
+}
+</style>
+<script>
+//배경색을 결정하는 변수!!
+
+var x = 1;
+var y = 0;
+
+//경우가 2가지라면 논리값을 이용하자
+var bg;
+var flag=true;//현재 상태가 켜져있는지, 꺼져있는지를 판단하기위한 변수
+
+function On(){
+	//문서에 적용된 스타일 백그라운드를 노란색으로 적용
+	document.body.style.background="yellow";
+}
+
+function Off(){
+	//문서에 적용된 스타일 백그라운드를 검정색으로 적용
+	document.body.style.background="black";
+}
+function toggle(){
+/*
+	x=(x>=10)? 1 : x+1;
+	y=(x%2==1) ? "yellow" : "black";
+	document.body.style.background=y;
+	console.log(x);
+
+
+	bg=(!flag)? "yellow" : "black";
+	flag=!flag;
+	document.body.style.background=bg;
+	console.log(bg);
+	setTimeout("toggle()",100);
+*/
+
+/*
+	flag=(flag=="black")? "yellow" : "black";
+	document.body.style.background=flag;
+	console.log(flag);
+*/	
+
+if(flag){
+	bg="black";
+}else{
+	bg="yellow";
+}
+document.body.style.background=bg;
+
+setTimeout("toggle()",100);
+
+
+}
+</script>
+</head>
+<body>
+	<input type="button" value="ON" OnClick="On()">
+	<input type="button" value="OFF" OnClick="Off()">
+	<input type="button" value="원터치" OnClick="toggle()">
+</body>
+</html>

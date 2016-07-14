@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>단어게임</title>
+<style>
+#wrapper{	
+	width: 400px;
+	height: 500px;
+	border:2px solid red;
+	margin:auto;
+}
+#word_view{
+	width:100%;
+	height:120px;
+	background: #ccffff;
+	font-size:50pt;
+	text-align:center;
+}
+#word_input{
+	width:99%;
+	height:90px;
+	background:yellow;
+	font-size:40pt;
+}
+#feedback{
+	width:100%
+	height:200px;
+	font-size:120pt;
+	text-align:center;
+	color:red;
+	font-weight:bold;
+}
+#score{
+	width:100%;
+	height:70px;
+	font-size:50pt;
+	text-align:center;
+}
+</style>
+<script>
+var count=0;//배열의 몇번째를 보여줄지 결정하는 전역변수!!!
+var point=0;//누적될 점수
+var test="O/X";
+var word= new Array(); //크기를 정하지 않는 배열공간 선언
+word[0]="광화문";
+word[1]="마우스";
+word[2]="택시";
+word[3]="몽땅";
+word[4]="딸기";
+word[5]="문";
+word[6]="수박";
+word[7]="식사";
+word[8]="구구단";
+word[9]="쾰른";
+var x;
+
+/*게임 가동과 동시에 초기에 하고싶은 작엄*/
+function init(){
+	//게임네의 단어 올려놓기
+	var word_view=document.getElementById("word_view");
+	word_view.innerText=word[count];
+	//커서를 올려 놓기
+	var word_input=document.getElementById("word_input");
+	word_input.focus();//focus커서 올려놓는 기능의 함수 호출!
+
+	var score=document.getElementById("score")
+	score.innerText=point;
+	var feedback=document.getElementById("feedback");
+	feedback.innerText=test;
+}
+
+//키보드를 눌렀다 뗄때, 아래의 함수 호출함
+function enter(){
+	var key=event.keyCode;//사용자가 입력한 키보드의 아스키값 반환
+//	alert("당신이 입력한 키보드의 아스키코드값은"+key);
+	if(key==13){
+		//사용자가 입력한 데이터와 현재 보고있는 배열과 값을 비교하여 알맞는 피드백을 처리하자
+		if(word[count]==word_input.value){
+			//점수증가및 출력
+			point+=10;
+			score.innerText=point;
+			test="O"
+		}else{
+			test="X"
+		}
+		
+	//	console.log("count 변전:"+count);
+	//	console.log("word :"+word.length);
+
+		if(count<word.length){
+		count++;
+	//	console.log("count :"+count);
+		word_view.innerText=word[count];
+		}else{
+			alert("게임이 종료되었습니다.");
+		}
+		feedback.innerText=test;
+		//입력한 데이터 초기화
+		word_input.value="";
+	}
+}
+</script>
+</head>
+<body onload="init()">
+<!--  디자인
+입력해야할TXT
+text 입력하는장소
+입력한값의 피드백
+점수
+-->
+<div id="wrapper">
+	<div id="word_view"></div>
+	<input type="text" id="word_input" onKeyUp="enter()">
+	<div id="feedback"></div>
+	<div id="score"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>전사애니</title>
+<script>
+
+//문서내의 pic이라는 이미지의 src를 바꾸자
+var x = 1;
+
+function start(){
+x++;
+
+
+//삼항 연산자로 처리하기 : x가 19이상이 되면 다시 1로 전환
+//x=(x==19)? 1 : x ;
+
+//조건문 if로 처리하기
+if(x>=19){
+x=1;
+}
+
+document.getElementById("pic").src="../images/warior/image"+x+".png";
+
+console.log(x);
+//컴퓨터 스스로 이 함수를 호출하게 하자
+//1/1000초까지 표현이 가능하다
+setTimeout("start()",100);
+}
+
+
+
+
+</script>
+
+</head>
+
+<body>
+<img src="../images/warior/image1.png" id="pic">
+<br>
+<input type="button" value="실행" OnClick="start()">
+
+</body>
+</html>

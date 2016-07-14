@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>이미지들고다니기</title>
+
+<script>
+/*
+Event onLoad
+문서가 실행되면 아래의 텍스트가박스에 내이름 넣기!!
+*/
+function write(){
+document.getElementById("txt").value="사과";
+}
+</script>
+
+</head>
+<body onLoad="write()">
+<!--
+<img src="../images/gen.jpg" onDblClick="alert('더블클릭');"
+  onMouseOut="alert('나감?');" onMouseOver="alert('올렸어?');">
+<input type="text" onBlur="alert=('커서가사라짐');" onFocus="alert('커서올렸어');">
+-->
+<input type="text" id="txt" onChange="alert('변경했어')">
+
+<select onchange="alert('빠꿨어');">
+	<option>메이버</option>
+	<option> 규글</option>
+	<option>따움</option>
+</select>
+</body>
+</html>

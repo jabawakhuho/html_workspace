@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>연습</title>
+<style>
+#stage{
+	width:800px;
+	height:800px;
+	background:yellow;
+
+}
+</style>
+<script>
+var stage;
+var img;
+var x;
+window.addEventListener("load",function(){
+	init();
+});
+
+window.addEventListener("keydown",function(){
+	var key = event.keyCode;
+	switch(key){
+		case 37: 	x= -10+parseInt(img.style.left); console.log("xxx");break;
+		case 39:  x=10+parseInt(img.style.left); break;
+		case 32: bullet(); break;
+	}
+	
+	move(x);
+});
+
+function init(){
+	stage=document.getElementById("stage");
+	img=document.createElement("img");
+	img.src="../images/gallerxy/ship.png";
+	img.style.width="50px";
+	img.style.height="40px";
+	img.style.position="absolute"
+	img.style.left="375px";
+	img.style.top="700px";
+	stage.appendChild(img);
+
+}
+function bullet(){
+	var span=document.createElement("span");
+	span.innertext="★";
+	span.style.color="red";
+	span.style.width="20px";
+	span.style.position="absolute";
+	span.style.left=parseInt(img.style.left)-20+"px";
+	span.style.top=parseInt(img.style.top)+"px";
+	span.style.fontsize="40pt";
+
+	stage.appendChild(span);
+
+}
+
+function move(x){
+	var limitX=parseInt(stage.style.width)-50;
+//	console.log(limitX);
+	if(x>0&&x<limitX){
+		img.style.left=x+"px";
+	}
+	setTimeout("move(x)",5);
+
+}
+</script>
+
+</head>
+<body>
+<div id="stage" style="width:800px">
+
+</div>
+</body>
+</html>
