@@ -29,21 +29,14 @@ ul li{
 	float:left;
 	width:100px;
 }
-select{
-	width:90px;
-	height:30px;
-	font-size:20pt;
-}
 </style>
 <script src="../lib/DateBox.js"></script>
-<script src="../lib/lib.js"></script>
 <script>
 var down;
 var dateArr =new Array();
 var tr=true;
 var yy;
 var mm;
-var dayName=["일요일","월요일","화요일","수요일","목요일","금요일","토요일"];
 window.addEventListener("load",function(){
 	init();
 });	
@@ -51,16 +44,24 @@ window.addEventListener("load",function(){
 function init(){
 	down=document.getElementById("down");
 	//최대 42개의 날짜 박스를 생성한다!!
+	for(var i=1; i<43 ; i++){
+		var box= new DateBox(down,100,100,i);
+		box.init();
+		dateArr.push(box);
+	}
 
-	//select년 옵션 추가(1920-2030)
+	//1920-2030
 	yy=document.getElementById("sel_yy");
-	createOption(yy,2030,1920,!tr);
-	//select달 옵션 추가(1920-2030)
+	createOption(yy,2030,1920,tr);
+
 	mm=document.getElementById("sel_mm");
 	createOption(mm,12,1,!tr);
 	console.log(!tr);
-	
-	createBox();
+
+}
+
+function createWin(){
+
 }
 
 //일정 법위 option 추가하기
@@ -79,39 +80,6 @@ function createOption(st,max,min,tr){
 		}
 	}
 }
-//기존에 출력된 달력을 모두 지운다
-function deleteBox(){
-	down.innerText="";
-}
-//달력 생성
-function createBox(){
-	//현재 select 박스에 선택된 값에 의한 날짜 정보 셋팅
-	var d= new Date(yy.value+"-"+mm.value+"-1");
-	var startDay=d.getDay();
-	var count=0;
-//해당 월은 몇일까지 있나
-	var lastDate=getLastDate(yy.value,mm.value);
-	
-	//console.log(max);
-	for(var i=0; i< 42 ; i++){
-		if(i>=startDay && count < lastDate ){
-			count++
-			var box= new DateBox(down,100,100,count);
-			box.init();
-		}else{
-			var box= new DateBox(down,100,100,"");
-			box.init();
-		}
-	}
-}
-//down영역에 선택한 날짜에 해당하는 달 출력
-function showCal(){
-
-	deleteBox();//달력 초기화
-	createBox();//달력생성
-
-
-}
 
 </script>
 </head>
@@ -120,7 +88,7 @@ function showCal(){
 	<div id="up">
 		<select id="sel_yy"></select>년도
 		<select id="sel_mm"></select>월
-		<input type="button" value="검색" onClick="showCal()">
+		<input type="button" value="검색">
 	</div>
 	<div id="dayTitle">
 		<ul>
